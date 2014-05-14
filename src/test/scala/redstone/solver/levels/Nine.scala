@@ -6,80 +6,67 @@ import org.scalatest.junit.JUnitRunner
 
 import redstone._
 import redstone.piece._
-import redstone.solver.util._
 import redstone.solver._
+import redstone.solver.util._
 
 @RunWith(classOf[JUnitRunner])
-class One extends FunSuite {
+class Nine extends FunSuite {
 
-  // Which solver do we use?
+ // Which solver do we use?
   val priorityQueueSolver = !true
   val depthFirstSearchSolver = !true
   val breadthFirstSearchSolver = true
   
   // Results
   //
-  // priorityQ:  51 moves,   227 itertions
-  // DFS      : 457 moves,   876 iterations
-  // BFS      :  27 moves,  1046 iterations
+  // priorityQ:  XXX moves, 17XXX iterations
+  // DFS      : 1XXX moves,  4XXX iterations
+  // BFS      :  134 moves, 28515 iterations
   
   // |b  b|
-  // |bbbb|
-  // |bbbb|
-  // |bBBb|
-  // |bBBb|
-  
-  test("level") {
+  // |b<>b|
+  // |<><>|
+  // |^BB^|
+  // |UBBU|
+
+  test("level 9") {
     var pieces: List[BoardPiece] = List()
     
-    // Row 0    
-    var piece: BoardPiece = new SmallSquare(0, 0, 0)
+    // Row 0
+    var piece: BoardPiece = new UpRectangle(0, 0, 0)
     pieces = pieces :+ piece
     
     piece = new BigSquare(1, 1, 0)
     pieces = pieces :+ piece
     
-    piece = new SmallSquare(2, 3, 0)
+    piece = new UpRectangle(2, 3, 0)
     pieces = pieces :+ piece
     
     // Row 1
-    piece = new SmallSquare(3, 0 , 1)
-    pieces = pieces :+ piece
+    // Empty
     
-    piece = new SmallSquare(4, 3, 1)
-    pieces = pieces :+ piece
-    
-    // Row 2    
-    piece = new SmallSquare(5, 0, 2)
-    pieces = pieces :+ piece
-    
-    piece = new SmallSquare(6, 1, 2)
-    pieces = pieces :+ piece
-    
-    piece = new SmallSquare(7, 2, 2)
-    pieces = pieces :+ piece
-    
-    piece = new SmallSquare(8, 3, 2)
+    // Row 2
+    piece = new SideRectangle(3, 0, 2)
     pieces = pieces :+ piece
 
-    // Row 3    
-    piece = new SmallSquare(9, 0, 3)
+    piece = new SideRectangle(4, 2, 2)
+    pieces = pieces :+ piece
+
+    // Row 3
+    piece = new SmallSquare(5, 0, 3)
+    pieces = pieces :+ piece
+
+    piece = new SideRectangle(6, 1, 3)
     pieces = pieces :+ piece
     
-    piece = new SmallSquare(10, 1, 3)
-    pieces = pieces :+ piece
-    
-    piece = new SmallSquare(11, 2, 3)
-    pieces = pieces :+ piece
-    
-    piece = new SmallSquare(12, 3, 3)
+    piece = new SmallSquare(7, 3, 3)
     pieces = pieces :+ piece
     
     // Row 4
-    piece = new SmallSquare(13, 0, 4)
+    piece = new SmallSquare(8, 0, 4)
     pieces = pieces :+ piece
 
-    piece = new SmallSquare(14, 3, 4)
+    piece = new SmallSquare(9, 3, 4)
     pieces = pieces :+ piece
     
     val board = new Board(pieces)

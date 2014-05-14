@@ -23,6 +23,12 @@ class Six extends FunSuite {
   // DFS      : 1474 moves,  4198 iterations
   // BFS      :  138 moves, 30321 iterations
   
+  // | <> |
+  // |b<>b|
+  // |b<>b|
+  // |^BB^|
+  // |UBBU|
+  
   test("level 6") {
     var pieces: List[BoardPiece] = List()
     
