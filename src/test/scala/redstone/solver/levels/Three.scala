@@ -29,7 +29,7 @@ class Three extends FunSuite {
   // |^BB^|
   // |UBBU|
   
-  test("level 3") {
+  test("level 3 - Azurite") {
     var pieces: List[BoardPiece] = List()
     
     // Row 0    

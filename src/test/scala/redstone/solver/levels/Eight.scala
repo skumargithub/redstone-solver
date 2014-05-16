@@ -29,7 +29,7 @@ class Eight extends FunSuite {
   // |^BB^|
   // |UBBU|
   
-  test("level 8") {
+  test("level 8 - Malachit") {
     var pieces: List[BoardPiece] = List()
     
     // Row 0

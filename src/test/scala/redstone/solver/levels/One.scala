@@ -29,7 +29,7 @@ class One extends FunSuite {
   // |bBBb|
   // |bBBb|
   
-  test("level 1") {
+  test("level 1 - Charoite") {
     var pieces: List[BoardPiece] = List()
     
     // Row 0    

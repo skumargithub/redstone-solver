@@ -29,7 +29,7 @@ class Two extends FunSuite {
   // |^BB^|
   // |UBBU|
   
-  test("level 2") {
+  test("level 2 - Epidote") {
     var pieces: List[BoardPiece] = List()
     
     // Row 0    

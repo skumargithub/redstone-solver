@@ -29,7 +29,7 @@ class Seven extends FunSuite {
   // |UBBU|
   // |bBBb|
   
-  test("level 7") {
+  test("level 7 - Topaz") {
     var pieces: List[BoardPiece] = List()
     
     // Row 0

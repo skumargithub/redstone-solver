@@ -30,7 +30,7 @@ class Five extends FunSuite {
   // |^BB^|
   // |UBBU|
   
-  test("level 5") {
+  test("level 5 - Rubin") {
     var pieces: List[BoardPiece] = List()
     
     // Row 0    
