@@ -19,7 +19,7 @@ class Eight extends FunSuite {
   
   // Results
   //
-  // priorityQ:  XXX moves, 17XXX iterations
+  // priorityQ:  579 moves,  6831 iterations
   // DFS      : 1XXX moves,  4XXX iterations
   // BFS      :  114 moves, 23937 iterations
   
@@ -70,12 +70,14 @@ class Eight extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
     }
     
     Utility.printSolution(board, solutionBoard)
+
+    assert(solutionBoard.isDefined && solutionBoard.get.isSolution)
   }
 }

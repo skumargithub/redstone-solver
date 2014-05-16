@@ -14,14 +14,20 @@ class Two extends FunSuite {
 
   // Which solver do we use?
   val priorityQueueSolver = !true
-  val depthFirstSearchSolver = true
-  val breadthFirstSearchSolver = !true
+  val depthFirstSearchSolver = !true
+  val breadthFirstSearchSolver = true
   
   // Results
   //
   // priorityQ: 121 moves,   425 iterations
   // DFS      : 495 moves,  3774 iterations
   // BFS      :  46 moves, 18786 iterations
+  
+  // |b  b|
+  // |bbbb|
+  // |bbbb|
+  // |^BB^|
+  // |UBBU|
   
   test("level 2") {
     var pieces: List[BoardPiece] = List()
@@ -70,12 +76,14 @@ class Two extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
     }
     
     Utility.printSolution(board, solutionBoard)
+
+    assert(solutionBoard.isDefined && solutionBoard.get.isSolution)
   }
 }

@@ -23,7 +23,13 @@ class Three extends FunSuite {
   // DFS      : 966 moves, 19619 iterations
   // BFS      :  45 moves, 28709 iterations
   
-  test("level") {
+  // |b  b|
+  // |bbb^|
+  // |bbbU|
+  // |^BB^|
+  // |UBBU|
+  
+  test("level 3") {
     var pieces: List[BoardPiece] = List()
     
     // Row 0    
@@ -67,12 +73,14 @@ class Three extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
     }
     
     Utility.printSolution(board, solutionBoard)
+
+    assert(solutionBoard.isDefined && solutionBoard.get.isSolution)
   }
 }

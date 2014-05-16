@@ -24,6 +24,12 @@ class Five extends FunSuite {
   // DFS      : 994 moves, 24587 iterations
   // BFS      :  64 moves, 54107 iterations
   
+  // |b  b|
+  // |bbb^|
+  // |b<>U|
+  // |^BB^|
+  // |UBBU|
+  
   test("level 5") {
     var pieces: List[BoardPiece] = List()
     
@@ -65,12 +71,14 @@ class Five extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
     }
     
     Utility.printSolution(board, solutionBoard)
+
+    assert(solutionBoard.isDefined && solutionBoard.get.isSolution)
   }
 }

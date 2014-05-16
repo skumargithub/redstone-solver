@@ -12,9 +12,9 @@ import redstone.solver._
 class MoveAroundSolverSuite extends FunSuite {
   
   // Which solver do we use?
-  val priorityQueueSolver = true
+  val priorityQueueSolver = !true
   val depthFirstSearchSolver = !true
-  val breadthFirstSearchSolver = !true
+  val breadthFirstSearchSolver = true
   
   test("move around UpRectangle 1") {
     var pieces: List[BoardPiece] = List()
@@ -26,7 +26,7 @@ class MoveAroundSolverSuite extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
@@ -34,7 +34,7 @@ class MoveAroundSolverSuite extends FunSuite {
 
     Utility.printSolution(board, solutionBoard)
     
-//    assert(solutionBoard.movesSoFar.size === 4)
+    assert(solutionBoard.isDefined && solutionBoard.get.isSolution)
   }
   
   test("move around UpRectangle 2") {
@@ -47,7 +47,7 @@ class MoveAroundSolverSuite extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
@@ -56,6 +56,7 @@ class MoveAroundSolverSuite extends FunSuite {
     Utility.printSolution(board, solutionBoard)
 
 //    assert(solutionBoard.movesSoFar.size === 5) // least # of moves = 5
+    assert(solutionBoard.isDefined && solutionBoard.get.isSolution)
   }
   
   test("move around 2 UpRectangles") {
@@ -71,7 +72,7 @@ class MoveAroundSolverSuite extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
@@ -80,5 +81,6 @@ class MoveAroundSolverSuite extends FunSuite {
     Utility.printSolution(board, solutionBoard)
 
 //    assert(solutionBoard.movesSoFar.size === 5) // least # of moves = 5
+    assert(solutionBoard.isDefined && solutionBoard.get.isSolution)
   }
 }

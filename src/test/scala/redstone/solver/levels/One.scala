@@ -29,7 +29,7 @@ class One extends FunSuite {
   // |bBBb|
   // |bBBb|
   
-  test("level") {
+  test("level 1") {
     var pieces: List[BoardPiece] = List()
     
     // Row 0    
@@ -83,12 +83,14 @@ class One extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
     }
     
     Utility.printSolution(board, solutionBoard)
+
+    assert(solutionBoard.isDefined && solutionBoard.get.isSolution)
   }
 }

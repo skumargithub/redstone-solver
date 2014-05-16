@@ -12,15 +12,15 @@ import redstone.solver.util._
 @RunWith(classOf[JUnitRunner])
 class Nine extends FunSuite {
 
- // Which solver do we use?
+  // Which solver do we use?
   val priorityQueueSolver = !true
   val depthFirstSearchSolver = !true
   val breadthFirstSearchSolver = true
   
   // Results
   //
-  // priorityQ:  XXX moves, 17XXX iterations
-  // DFS      : 1XXX moves,  4XXX iterations
+  // priorityQ:  878 moves, 15557 iterations
+  // DFS      : 1490 moves,  7038 iterations
   // BFS      :  134 moves, 28515 iterations
   
   // |b  b|
@@ -70,12 +70,14 @@ class Nine extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
     }
     
     Utility.printSolution(board, solutionBoard)
+
+    assert(solutionBoard.isDefined && solutionBoard.get.isSolution)
   }
 }

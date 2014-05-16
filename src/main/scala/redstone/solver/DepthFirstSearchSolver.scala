@@ -6,22 +6,21 @@ import redstone.Board
 object DepthFirstSearchSolver {
 
   val movesAlreadyExplored: HashSet[Board] = HashSet()    
-  var solved: Boolean = false;
-  var solution: Board = null;
+
+  var solution: Option[Board] = None;
   
   var maxDepthToSearch: Int = 500
   
-  def dfs(currentBoard: Board, currentDepth: Int = 0): Unit = {
+  def dfs(currentBoard: Board, currentDepth: Int = 0): Option[Board] = {
   
-    if(!solved && currentDepth <= maxDepthToSearch && !movesAlreadyExplored.contains(currentBoard)) {
+    if(!solution.isDefined && currentDepth <= maxDepthToSearch && !movesAlreadyExplored.contains(currentBoard)) {
       
       movesAlreadyExplored += currentBoard
 
       if(currentBoard.isSolution) {
         println("We have a solution! current iteration count: " + movesAlreadyExplored.size)
 
-        solved = true
-        solution = currentBoard
+        solution = Some(currentBoard)
       } else {
         for(possibleMove <- currentBoard.possibleMoves) {
           val newBoard = Board(currentBoard, possibleMove)
@@ -31,13 +30,13 @@ object DepthFirstSearchSolver {
         }
       }
     }
+    
+    solution
   }
   
-  def solve(board: Board, depthSearchLimit: Int = 1500): Board = {
+  def solve(board: Board, depthSearchLimit: Int = 1500): Option[Board] = {
     maxDepthToSearch = depthSearchLimit
     
     dfs(board)
-    
-    solution
   }
 }

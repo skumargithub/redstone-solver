@@ -14,9 +14,9 @@ import redstone.solver.util._
 class SolverSuite extends FunSuite {
 
   // Which solver do we use?
-  val priorityQueueSolver = true
+  val priorityQueueSolver = !true
   val depthFirstSearchSolver = !true
-  val breadthFirstSearchSolver = !true
+  val breadthFirstSearchSolver = true
   
   test("solve in 0 steps") {
     var pieces: List[BoardPiece] = List()
@@ -25,7 +25,7 @@ class SolverSuite extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
@@ -33,7 +33,7 @@ class SolverSuite extends FunSuite {
     
     Utility.printSolution(board, solutionBoard)
     
-    assert(solutionBoard.movesSoFar.size === 0)
+    assert(solutionBoard.isDefined && solutionBoard.get.movesSoFar.size === 0)
   }
   
   test("solve in 1 step, Up") {
@@ -43,7 +43,7 @@ class SolverSuite extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
@@ -51,7 +51,7 @@ class SolverSuite extends FunSuite {
     
     Utility.printSolution(board, solutionBoard)
     
-    assert(solutionBoard.movesSoFar.size === 1)
+    assert(solutionBoard.isDefined && solutionBoard.get.movesSoFar.size === 1)
   }
   
   test("solve in 1 step, Right") {
@@ -61,7 +61,7 @@ class SolverSuite extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)    
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
@@ -69,7 +69,7 @@ class SolverSuite extends FunSuite {
     
     Utility.printSolution(board, solutionBoard)    
     
-    assert(solutionBoard.movesSoFar.size === 1)
+    assert(solutionBoard.isDefined && solutionBoard.get.movesSoFar.size === 1)
   }
   
   test("solve in 1 step, Left") {
@@ -79,7 +79,7 @@ class SolverSuite extends FunSuite {
     pieces = pieces :+ piece
     
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
@@ -87,7 +87,7 @@ class SolverSuite extends FunSuite {
     
     Utility.printSolution(board, solutionBoard)
     
-    assert(solutionBoard.movesSoFar.size === 1)
+    assert(solutionBoard.isDefined && solutionBoard.get.movesSoFar.size === 1)
   }
   
   test("solve in 2 steps") {
@@ -97,7 +97,7 @@ class SolverSuite extends FunSuite {
     pieces = pieces :+ piece
 
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
@@ -105,7 +105,7 @@ class SolverSuite extends FunSuite {
 
     Utility.printSolution(board, solutionBoard)
 
-    assert(solutionBoard.movesSoFar.size === 2)
+    assert(solutionBoard.isDefined && solutionBoard.get.movesSoFar.size === 2)
   }
   
   test("solve in 3 steps") {
@@ -115,7 +115,7 @@ class SolverSuite extends FunSuite {
     pieces = pieces :+ piece
 
     val board = new Board(pieces)
-    val solutionBoard: Board = {
+    val solutionBoard: Option[Board] = {
       if(priorityQueueSolver) PriorityQueueSolver.solve(board)
       else if(depthFirstSearchSolver) DepthFirstSearchSolver.solve(board)
       else BreadthFirstSearchSolver.solve(board)
@@ -123,6 +123,6 @@ class SolverSuite extends FunSuite {
 
     Utility.printSolution(board, solutionBoard)
 
-    assert(solutionBoard.movesSoFar.size === 3)
+    assert(solutionBoard.isDefined && solutionBoard.get.movesSoFar.size === 3)
   }    
 }

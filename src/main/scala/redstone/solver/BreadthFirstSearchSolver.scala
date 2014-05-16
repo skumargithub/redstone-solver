@@ -5,14 +5,16 @@ import scala.collection.mutable.Queue
 import redstone.Board
 
 object BreadthFirstSearchSolver {
-  def solve(board: Board): Board = {
+  def solve(board: Board): Option[Board] = {
     
     val movesAlreadyExplored: HashSet[Board] = HashSet()    
     
     val queue = new Queue[Board]()
     queue.enqueue(board)
     
-    while(!queue.isEmpty) {
+    var solution: Option[Board] = None
+    
+    while(!queue.isEmpty && !solution.isDefined) {
       val currentBoard = queue.dequeue
 
       if(!movesAlreadyExplored.contains(currentBoard)) {
@@ -22,7 +24,8 @@ object BreadthFirstSearchSolver {
 
         if(currentBoard.isSolution) {
           println("We have a solution! current iteration count: " + numberOfIterations)        
-          return currentBoard
+          
+          solution = Some(currentBoard)
         }
 
         val possibleMoves = currentBoard.possibleMoves
@@ -37,6 +40,6 @@ object BreadthFirstSearchSolver {
       }
     }
     
-    board
+    solution
   }
 }

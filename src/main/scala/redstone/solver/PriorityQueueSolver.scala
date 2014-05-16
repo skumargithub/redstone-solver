@@ -6,7 +6,7 @@ import scala.collection.mutable.PriorityQueue
 import redstone.Board
 
 object PriorityQueueSolver {
-  def solve(board: Board): Board = {
+  def solve(board: Board): Option[Board] = {
     
     implicit def boardPriority(b: Board): Ordered[Board] = new Ordered[Board] {
 //      def compare(other: Board): Int = b.manhattanPriority compare other.manhattanPriority
@@ -19,7 +19,9 @@ object PriorityQueueSolver {
     val priorityQ = new PriorityQueue[Board]()
     priorityQ.enqueue(board)
     
-    while(!priorityQ.isEmpty) {
+    var solution: Option[Board] = None
+    
+    while(!priorityQ.isEmpty && !solution.isDefined) {
       var currentBoard = priorityQ.dequeue
 
       if(!movesAlreadyExplored.contains(currentBoard)) {
@@ -29,7 +31,8 @@ object PriorityQueueSolver {
 
         if(currentBoard.isSolution) {
           println("We have a solution! current iteration count: " + numberOfIterations)
-          return currentBoard
+
+          solution = Some(currentBoard)
         }
       
         val possibleMoves = currentBoard.possibleMoves
@@ -44,6 +47,6 @@ object PriorityQueueSolver {
       }
     }
     
-    board
+    solution
   }
 }
