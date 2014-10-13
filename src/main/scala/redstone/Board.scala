@@ -3,7 +3,8 @@ package redstone
 import Direction._
 import redstone.piece._
 
-class Board(val boardPieces: List[BoardPiece], val movesSoFar: List[(Int, Direction)] = List()) {
+class Board(val boardPieces: List[BoardPiece], val maxX: Int = 3, val maxY: Int = 4, val bigSquareTargetX: Int = 1, val bigSquareTargetY: Int = 3,
+            val movesSoFar: List[(Int, Direction)] = List()) {
   
   def findPiece(id: Int): BoardPiece = boardPieces(id)
 
@@ -21,7 +22,7 @@ class Board(val boardPieces: List[BoardPiece], val movesSoFar: List[(Int, Direct
     bigSquare.get
   }
   
-  def isPositionOpen(x: Int, y: Int, maxX: Int = 3, maxY: Int = 4): Boolean = {
+  def isPositionOpen(x: Int, y: Int): Boolean = {
     x >= 0 && x <= maxX &&
     y >= 0 && y <= maxY &&
     boardPieces.foldLeft(true) { (isItTrue, boardPiece) => isItTrue && boardPiece.isPositionOpen(x, y) }
@@ -69,13 +70,13 @@ class Board(val boardPieces: List[BoardPiece], val movesSoFar: List[(Int, Direct
   def isSolution: Boolean = {
     val bigSquare = findBigSquare
     
-    bigSquare.y == 3 && bigSquare.x == 1 
+    bigSquare.y == bigSquareTargetY && bigSquare.x == bigSquareTargetX
   }
   
   override def toString: String = {
     import Array._
 
-    val positions: Array[Array[String]] = Array.fill(4, 5) { " " } //ofDim(4, 5)
+    val positions: Array[Array[String]] = Array.fill(maxX + 1, maxY + 1) { " " } //ofDim(4, 5)
     for (boardPiece <- boardPieces) {
       val X = boardPiece.x
       val Y = boardPiece.y
@@ -103,9 +104,9 @@ class Board(val boardPieces: List[BoardPiece], val movesSoFar: List[(Int, Direct
 
     var result: String = ""    
     //boardPieces.foreach(bp => result += (bp.description + ": " + bp.id + " -> (" + bp.getX + ", " + bp.getY + ")\n"))
-    for (y <- 4 to 0 by -1) {
+    for (y <- maxY to 0 by -1) {
       result += "|"
-      for (x <- 0 to 3) {
+      for (x <- 0 to maxX) {
         result += positions(x)(y)
       }
       result += "|\n"
@@ -133,8 +134,8 @@ class Board(val boardPieces: List[BoardPiece], val movesSoFar: List[(Int, Direct
   val hashValue: Int = {
     var hashGen: String = ""
 
-    for(x <- 0 until 2) {
-      for(y <- 0 until 3) {
+    for(x <- 0 until maxX) {
+      for(y <- 0 until maxY) {
         val bp: Option[BoardPiece] = findPieceAt(x, y)
         if(bp.isDefined) {
           val b: BoardPiece = bp.get
@@ -165,7 +166,7 @@ object Board {
       newBoardPieces = newBoardPieces :+ newBoardPiece
     }
     
-    val newBoard = new Board(newBoardPieces, nextMove :: board.movesSoFar)
+    val newBoard = new Board(newBoardPieces, board.maxX, board.maxY, board.bigSquareTargetX, board.bigSquareTargetY, nextMove :: board.movesSoFar)
     
     newBoard
   }
